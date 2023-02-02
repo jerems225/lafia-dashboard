@@ -1,19 +1,32 @@
-<!DOCTYPE html>
-<html>
+{% block header %}
+  <!DOCTYPE html>
+  <html lang="fr">
     <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
+      {% include './_partials/menus/stylesheets.html.twig' %}
+      {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+      {% endblock %}
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
+      {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+      {% endblock %}
     </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+
+    <body class="g-sidenav-show  bg-gray-100">
+      {% include './_partials/menus/aside-menu.html.twig' %}
+      <main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ">
+        {% include '/_partials/menus/nav-bar.html.twig' %}
+{% endblock header %}
+
+{% block body %}{% endblock body %}
+
+{% block footer %}
+      {% include './_partials/menus/footer.html.twig' %}
+      </div>
+    </main>
+
+    {% include './_partials/menus/javascript.html.twig' %}
+  </body>
+
 </html>
+{% endblock footer %}
