@@ -55,6 +55,7 @@ class AuthService
                 {
                     $userStore->setPassword($datas['content']['user']['user']['password']);
                     $userStore->setToken($datas['content']['token']);
+                    $userStore->setUuid($datas['content']['user']['user']['_id']);
 
                     $this->userService->saveUser($userStore);
                 }
@@ -65,6 +66,7 @@ class AuthService
                     $newUser->setRoles(['admin']);
                     $newUser->setPassword($datas['content']['user']['user']['password']);
                     $newUser->setToken($datas['content']['token']);
+                    $newUser->setUuid($datas['content']['user']['user']['_id']);
 
                     $this->userService->saveUser($newUser);
                 }

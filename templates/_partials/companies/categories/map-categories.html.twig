@@ -1,0 +1,30 @@
+{% set catNum = 0 %}
+{% for c in categories|reverse %}
+  <div class="col-xl-3 col-md-6 mb-xl-0 mb-4">
+    <div class="card card-blog card-plain">
+      <div class="position-relative">
+        <a class="d-block shadow-xl border-radius-xl">
+          <img src="{{c.image}}" alt="img-blur-shadow" class="img-fluid shadow border-radius-xl">
+        </a>
+      </div>
+      <div class="card-body px-1 pb-0">
+        <a href="javascript:;">
+          <h5>
+            {{c.name}}
+          </h5>
+        </a>
+        <p class="mb-4 text-sm">
+          {{c.description}}
+        </p>
+        <p class="text-gradient text-dark mb-4 text-sm">{{c.createdAt|format_datetime('full', 'short', locale='fr')}}</p>
+        <div class="d-flex align-items-center justify-content-between">
+          <button type="button" class="btn btn-outline-primary btn-sm mb-0">Modifier</button>
+          <div class="avatar-group">
+            <button type="button" class="btn btn-danger btn-sm mb-0">Supprimer</button>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+{% endfor %}
