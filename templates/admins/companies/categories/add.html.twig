@@ -1,2 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block title %}Categories Entreprises {% endblock title %}
+{% block body %}
+<div class="main-content position-relative bg-gray-100 max-height-vh-100 h-100">
+    {% include './_partials/companies/categories/content.html.twig' %}
+</div>
+{% endblock body %}
