@@ -33,7 +33,7 @@ class LoginAuthenticator extends AbstractLoginFormAuthenticator
         $email = $request->request->get('email');
         $password = $request->request->get('password');
 
-        $response = $this->authService->Auth($email, $password);
+        $this->authService->Auth($email, $password);
 
         $request->getSession()->set(Security::LAST_USERNAME, $email);
         return new Passport(
@@ -53,11 +53,6 @@ class LoginAuthenticator extends AbstractLoginFormAuthenticator
 
         return new RedirectResponse($this->urlGenerator->generate('admin.index'));
     }
-
-    // public function onAuthenticationFailure(Request $request, AuthenticationException $exception): Response
-    // {
-    //     return new RedirectResponse($this->urlGenerator->generate('admin.login'));
-    // }
 
     protected function getLoginUrl(Request $request): string
     {

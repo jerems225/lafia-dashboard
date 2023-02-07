@@ -1,0 +1,77 @@
+{% if company and owner and user %}
+<div class="col-lg-4">
+    <div class="card h-100">
+      <div class="card-header pb-0 p-3">
+        <div class="row">
+          <div class="col-6 text-start">
+            <button class="btn btn-primary bg-gradient-dark btn-sm mb-0">Proprietaire</button>
+          </div>
+        </div>
+      </div>
+      <div class="card-body p-3 pb-0">
+        <ul class="list-group">
+            <li class="list-group-item border-0 ps-0 pt-0 text-primary text-sm">
+              <strong class="text-dark">Nom Complet:</strong>
+              &nbsp;
+              <b>{{user['firstName']}} {{user['lastName']}}</b>
+            </li>
+            <li class="list-group-item border-0 ps-0 text-primary text-sm">
+              <strong class="text-dark">Email:</strong>
+              &nbsp;
+              <b>{{user['email']}}</b>
+            </li>
+            <li class="list-group-item border-0 ps-0 text-primary text-sm">
+                <strong class="text-dark">Telephone:</strong>
+                &nbsp;
+                <b>{{user['phone']}}</b>
+            </li>
+
+        </ul>
+        <div class="row">
+            <div class="col-6 text-start">
+            <button class="btn btn-primary bg-gradient-dark btn-sm mb-0">Documents</button>
+            </div>
+        </div>
+        <ul class="list-group">
+          <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
+            <div class="d-flex flex-column">
+              <h6 class="mb-1 text-dark font-weight-bold text-sm">RCCM</h6>
+              <span class="text-xs">Registre de commerce</span>
+            </div>
+            <div class="d-flex align-items-center text-sm">
+              <a href="{{company['registrationLicense']}}" class="btn btn-link text-dark text-sm mb-0 px-0 ms-4" target="_blank" download>
+                <i class="fas fa-file-pdf text-lg me-1"></i><i class="fas fa-file-word text-lg me-1"></i>
+                PDF/DOCX
+              </a>
+            </div>
+          </li>
+          <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
+            <div class="d-flex flex-column">
+              <h6 class="mb-1 text-dark font-weight-bold text-sm">CNI (AVANT)</h6>
+              <span class="text-xs">Carte Nationale du proprietaire</span>
+            </div>
+            <div class="d-flex align-items-center text-sm">
+              <a href="{{owner['idCardFront']}}" class="btn btn-link text-dark text-sm mb-0 px-0 ms-4" target="_blank" download>
+                <i class="fa fa-file-image text-lg me-1"></i>
+                JPG/PNG
+              </a>
+            </div>
+          </li>
+          <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
+            <div class="d-flex flex-column">
+              <h6 class="mb-1 text-dark font-weight-bold text-sm">CNI (ARRIERE)</h6>
+              <span class="text-xs">Carte Nationale du proprietaire</span>
+            </div>
+            <div class="d-flex align-items-center text-sm">
+              <a href="{{owner['idCardBack']}}" class="btn btn-link text-dark text-sm mb-0 px-0 ms-4" target="_blank" download>
+                <i class="fa fa-file-image text-lg me-1"></i>
+                JPG/PNG
+              </a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+{% endif %}
+

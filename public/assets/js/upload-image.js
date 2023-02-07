@@ -1,12 +1,7 @@
-
-
 console.clear();
 ('use strict');
 
-
 // Drag and drop - single or multiple image files
-// https://www.smashingmagazine.com/2018/01/drag-drop-file-uploader-vanilla-js/
-// https://codepen.io/joezimjs/pen/yPWQbd?editors=1000
 (function () {
 
   'use strict';
@@ -14,70 +9,34 @@ console.clear();
   // Four objects of interest: drop zones, input elements, gallery elements, and the files.
   // dataRefs = {files: [image files], input: element ref, gallery: element ref}
 
-  let AllFiles = [];
-  var InputFiles = document.getElementById('category_image');
-
-  const preventDefaults = event => {
-    event.preventDefault();
-    event.stopPropagation();
-  };
-
-  const highlight = event =>
-    event.target.classList.add('highlight');
-  
-  const unhighlight = event =>
-    event.target.classList.remove('highlight');
-
   const getInputAndGalleryRefs = element => {
     const zone = element.closest('.upload_dropZone') || false;
     const gallery = zone.querySelector('.upload_gallery') || false;
     const input = zone.querySelector('input[type="file"]') || false;
-    console.log(input)
     return {input: input, gallery: gallery};
   }
-
-//   const handleDrop = event => {
-//     const dataRefs = getInputAndGalleryRefs(event.target);
-//     dataRefs.files = event.dataTransfer.files;
-//     AllFiles.push(dataRefs.files);
-//     if(dataRefs.files.length > 1 || AllFiles.length > 1)
-//     {
-//         alert("Veuillez glisser et deposer qu'une seule image svp !");
-//         return ;
-//     }
-//     handleFiles(dataRefs);
-
-//     InputFiles.files = event.dataTransfer.files;
-
-//   }
 
 
   const eventHandlers = zone => {
 
-    const dataRefs = getInputAndGalleryRefs(zone);
+    let dataRefs = getInputAndGalleryRefs(zone);
     if (!dataRefs.input) return;
-
-    // // Prevent default drag behaviors
-    // ;['dragenter', 'dragover', 'dragleave', 'drop'].forEach(event => {
-    //   zone.addEventListener(event, preventDefaults, false);
-    //   document.body.addEventListener(event, preventDefaults, false);
-    // });
-
-    // // Highlighting drop area when item is dragged over it
-    // ;['dragenter', 'dragover'].forEach(event => {
-    //   zone.addEventListener(event, highlight, false);
-    // });
-    // ;['dragleave', 'drop'].forEach(event => {
-    //   zone.addEventListener(event, unhighlight, false);
-    // });
-
-    // // Handle dropped files
-    // zone.addEventListener('drop', handleDrop, false);
 
     // Handle browse selected files
     dataRefs.input.addEventListener('change', event => {
-      dataRefs.files = event.target.files;
-      handleFiles(dataRefs);
+      if(!dataRefs.files)
+      {
+        dataRefs.files = event.target.files;
+        handleFiles(dataRefs);
+        console.log(dataRefs.files);
+      }
+      else if(dataRefs.files)
+      {
+        dataRefs = event.target.files;
+        console.log(dataRefs.files);
+        handleFiles(dataRefs);
+      }
+
     }, false);
 
   }
@@ -103,10 +62,13 @@ console.clear();
       reader.readAsDataURL(file);
       reader.onloadend = function() {
         let img = document.createElement('img');
-        img.className = 'upload_img mt-2';
+        img.className = 'mt-2 img-fluid rounded';
         img.setAttribute('alt', file.name);
+        img.setAttribute('width','150');
         img.src = reader.result;
         dataRefs.gallery.appendChild(img);
+        var illustration = document.getElementById('illustration');
+        illustration && dataRefs.files ? illustration.setAttribute('width', 50) : null
       }
     }
   }
@@ -125,10 +87,27 @@ console.clear();
     });
 
     if (!files.length) return;
-    dataRefs.files = files;
+    if(!dataRefs.files)
+    {
+      dataRefs.files = files;
+    }
 
     previewFiles(dataRefs);
-
   }
 
+
+
 })();
+
+function showMessage(event){
+  const response =  confirm("Vous êtes sure de vouloir supprimer cette catégorie d'entreprises? Notez que cette action est irréversible !");
+  if(!response) event.preventDefault();
+  return;
+}
+
+
+
+
+
+
+

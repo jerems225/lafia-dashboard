@@ -1,0 +1,62 @@
+<div class="table-responsive p-0">
+  <table class="table align-items-center mb-0">
+    <thead>
+      <tr class="bg-gradient-dark text-white text-center">
+        <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">Entreprise</th>
+        <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7 ps-2">Email & Phone</th>
+        <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7 ps-2">Ville & Pays</th>
+        <th class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7">Date de demande</th>
+        <th class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7">Statut</th>
+        <th class="text-white opacity-7">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for c in companies %}
+        <tr>
+          <td>
+            <div class="d-flex px-2 py-1">
+              <div>
+                <img src="{{c.image}}" class="avatar avatar-sm me-3" alt="company_image">
+              </div>
+              <div class="d-flex flex-column justify-content-center">
+                <h6 class="mb-0 text-sm">{{c.name}}</h6>
+                <p class="text-xs text-secondary mb-0">{{c.location}}</p>
+              </div>
+            </div>
+          </td>
+          <td class="align-middle text-center text-sm">
+            <div class="d-flex flex-column justify-content-center">
+              <h6 class="mb-0 text-sm">{{c.email}}</h6>
+              <p class="text-xs text-secondary mb-0">{{c.phone}}</p>
+            </div>
+          </td>
+          <td class="align-middle text-center text-sm">
+            <span class="badge badge-sm bg-gradient-dark">{{c.city}}, {{c.country}}</span>
+          </td>
+          <td class="align-middle text-center">
+            <span class="badge badge-sm bg-gradient-dark">{{c.createdAt|format_datetime('full', 'short', locale='fr')}}</span>
+          </td>
+          <td class="align-middle text-center">
+            {% if c.status == "pending" %}
+              <span class="badge badge-sm bg-gradient-warning">En attente de traitement</span>
+            {% endif %}
+          </td>
+          <td class="align-middle text-center">
+            <a href="{{path('admin.companies.show', {uuid : c._id})}}" class="btn btn-primary bg-gradient-secondary btn-sm mb-0">Consulter</a>
+          </td>
+        </tr>
+      {% endfor %}
+
+      {% if companies|length == 0 %}
+      <tr>
+        <td colspan="5">
+              <p class="text-xs text-secondary mb-0 text-center">
+                <strong class="text-dark">Aucune demande d'adhesion en attente de traitement !</strong>
+              </p>
+        </td>
+      </tr>
+      {% endif %}
+
+    </tbody>
+  </table>
+</div>

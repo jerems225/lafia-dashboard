@@ -14,7 +14,6 @@ class SecurityController extends AbstractController
 {
     public function __construct(private Environment $twig, private UserService $userService)
     {
-
     }
 
 
@@ -38,9 +37,8 @@ class SecurityController extends AbstractController
         ));
     }
 
-    #[Route('/deconnecction', name:'app_logout')]
+    #[Route('/deconnecction', name: 'app_logout')]
     public function logout()
     {
-        
     }
 }

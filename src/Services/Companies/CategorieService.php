@@ -19,9 +19,9 @@ class CategorieService extends AbstractController
      * Get All Companies Categories
      *
      * @param User $user
-     * @return array|null
+     * @return array
      */
-    public function getCategories(User $user): array|null
+    public function getCategories(User $user): array
     {
         $url = $_ENV['BASE_URL'] . '/categories-companies';
         $response = $this->client->request(
@@ -47,7 +47,46 @@ class CategorieService extends AbstractController
         } else {
             $content = $response->toArray(false);
             return [
+                'status' => false,
+                'message' => $content['message']
+            ];;
+        }
+    }
+
+    /**
+     * Get All Companies Categories
+     *
+     * @param User $user
+     * @return array
+     */
+    public function getCategory(User $user, $category_uuid): array
+    {
+        $url = $_ENV['BASE_URL'] . '/category-company/' .$category_uuid;
+        $response = $this->client->request(
+            'GET',
+            $url,
+            [
+                'headers' => [
+                    'Authorization' => 'bearer ' . $user->getToken()
+                ]
+            ]
+        );
+
+        $statusCode =  $response->getStatusCode();
+        if ($statusCode == 201 || $statusCode == 200) {
+            $content = $response->toArray(false);
+            $category = $content['data']['category'];
+
+            return [
                 'status' => true,
+                'message' => $content['message'],
+                'category' => $category,
+                'companies' => $content['data']['companies']
+            ];
+        } else {
+            $content = $response->toArray(false);
+            return [
+                'status' => false,
                 'message' => $content['message']
             ];;
         }
@@ -101,6 +140,50 @@ class CategorieService extends AbstractController
         }
     }
 
+    public function updateCategory(User $user, Array $category) : Array
+    {
+        $image = $category['image'];
+        $url = $_ENV['BASE_URL'] . '/category-company/modify/'.$category['uuid'];
+        $response = $this->client->request(
+            'PUT',
+            $url,
+            [
+                'headers' => [
+                    'Authorization' => 'bearer ' . $user->getToken(),
+                    'Content-Type' => 'application/json',
+                ],
+                'body' => json_encode([
+                    'name' => $category['name'],
+                    'description' => $category['description'],
+                    'userId' => $user->getUuid()
+                ])
+
+            ]
+        );
+
+        $statusCode = $response->getStatusCode();
+        if ($statusCode == 201 || $statusCode == 200) {
+            $content = $response->toArray(false);
+            $category = $content['data'];
+
+            //upload Image if is not null
+            if($image)
+            {
+                $upload = $this->uploadCategoryImage($user, $category, $image);
+                //if upload not work delete category
+                return  $upload['status'] ? ['status' => true, 'message' => $content['message']] : ['status' => false, 'message' => $upload['message']];
+            }
+
+            return  ['status' => true, 'message' => $content['message']];
+        } else {
+            $content = $response->toArray(false);
+            return [
+                'status' => false,
+                'message' => $content['message']
+            ];
+        }
+    }
+
     /**
      * Upload Categorie Image
      *
@@ -143,7 +226,7 @@ class CategorieService extends AbstractController
             ];
         } else {
             $content = $response->toArray(false);
-            $deleteCategory = $this->actionDeleteCategory($user, $category);
+            $deleteCategory = $this->actionDeleteCategory($user, $category['_id']);
             return [
                 'status' => false,
                 'message' => $content['message']
@@ -158,9 +241,9 @@ class CategorieService extends AbstractController
      * @param Array $category
      * @return boolean
      */
-    private function actionDeleteCategory(User $user, Array $category) : bool
+    private function actionDeleteCategory(User $user, String $category_uuid) : bool
     {
-        $url = $_ENV['BASE_URL'] . '/category-company/delete/'.$category['_id'];
+        $url = $_ENV['BASE_URL'] . '/category-company/delete/'.$category_uuid;
         $response = $this->client->request(
             'DELETE',
             $url,
@@ -173,5 +256,19 @@ class CategorieService extends AbstractController
 
         $statusCode = $response->getStatusCode();
         return $statusCode == 201 || $statusCode == 200 ? true : false;
+    }
+
+    /**
+     * Public delete Category Function
+     *
+     * @param User $user
+     * @param String $category_uuid
+     * @return Array
+     */
+    public function deleteCategory(User $user, String $category_uuid) : Array
+    {
+        $status = $this->actionDeleteCategory($user, $category_uuid);
+        
+        return $status ? ['status' => true, 'message' => 'Le processus de suppression de la catégorie a bien été pris en compte !'] : ['status' => false, 'message' => 'Le processus de suppression a ete interrompu, si cela persiste veuillez faire appel à votre technicien !'];
     }
 }

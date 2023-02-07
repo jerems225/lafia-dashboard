@@ -1,0 +1,33 @@
+<div class="modal-content">
+    <div class="modal-body p-0">
+      <div class="card card-plain">
+        <div class="card-header pb-0 text-left">
+          <h3 class="font-weight-bolder text-info text-gradient">Modification de la categorie "{{category['name']}}"</h3>
+        </div>
+        <div class="card-body">
+          {{form_start(form, {'attr':{'enctype':'multipart/form-data', 'id':'form-categorie'}})}}
+            <label>Titre</label>
+            <div class="input-group mb-3">
+              {{form_widget(form.title,{'attr':{'class':'form-control', 'value': category['name'], 'placeholder':'Ecrire ici ...', 'autofocus': 'autofocus'}})}}
+            </div>
+            <label>Description</label>
+            <div class="input-group mb-3">
+              {{form_widget(form.description,{'attr':{'class':'form-control','placeholder':'Ecrire ici...'}})}}
+            </div>
+            <label>Image d'illustration</label>
+
+            {% include './_partials/companies/categories/edit/upload-images.html.twig' %}
+            <div class="text-center d-flex">
+                <a href="{{path('admin.categories-companies')}}" class="btn btn-round bg-gradient-dark btn-lg w-50 mt-4 m-4">RETOUR</a>
+                <button type="submit" class="btn btn-round bg-gradient-info btn-lg w-50 mt-4 m-4">ENREGISTRER</button>
+            </div>
+          {{form_end(form)}}
+        </div>
+        <div class="card-footer text-center pt-0 px-lg-2 px-1">
+          <p class="mb-4 text-sm mx-auto">
+            Veuillez toujours enregister les modifications !
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
