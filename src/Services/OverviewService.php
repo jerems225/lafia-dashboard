@@ -171,7 +171,7 @@ class OverviewService
      */
     public function getOrdersCount(User $user, String $status): CountOrders
     {
-        $url = $_ENV['BASE_URL'] . '/orders?status=' . $status;
+        $url = $_ENV['BASE_URL'] . '/orders-status?status=' . $status;
         $response = $this->client->request(
             'GET',
             $url,
@@ -226,7 +226,7 @@ class OverviewService
             "Dec"
         ];
 
-        $url = $_ENV['BASE_URL'] . '/orders?status=' . $status;
+        $url = $_ENV['BASE_URL'] . '/orders-status?status=' . $status;
         $response = $this->client->request(
             'GET',
             $url,

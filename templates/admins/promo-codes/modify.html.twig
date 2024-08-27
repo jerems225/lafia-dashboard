@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+{% block title %}Modification du code promo 
+{% if promocode %} {{promocode.code}}{% endif %}
+{% endblock title %}
+{% block body %}
+<div class="main-content position-relative bg-gray-100 max-height-vh-100 h-100">
+    {% include './_partials/promo-codes/modify/content.html.twig' %}
+</div>
+{% endblock body %}

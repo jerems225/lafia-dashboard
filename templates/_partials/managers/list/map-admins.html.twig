@@ -1,0 +1,57 @@
+<div class="table-responsive p-0">
+    <table class="table align-items-center mb-0">
+      <thead>
+        <tr class="bg-white text-white text-center">
+          <th class="text-uppercase text-white font-weight-bolder opacity-10 text-start" colspan="3">
+            <a href="#" class="btn btn-info bg-gradient-info btn-sm mb-0" data-bs-toggle="modal" data-bs-target="#modal-form">Ajouter un gestionnaire
+              <i class="fa fa-plus-circle" style="font-size: 12px"></i>
+            </a>
+          </th>
+        </tr>
+        <tr class="bg-gradient-dark text-white text-center">
+            <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">NOM COMPLET</th>
+            <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7 ps-2">Telephone</th>
+            <th class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7">Date d'ajout</th>
+            <th class="text-white opacity-7">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for a in admins|reverse %}
+        <tr>
+            <td>
+              <div class="d-flex px-2 py-1">
+                <div class="d-flex flex-column justify-content-center">
+                  <h6 class="mb-0 text-sm">{{a.firstName}}
+                    {{a.lastName}}</h6>
+                  <p class="text-xs text-secondary mb-0">{{a.email}}</p>
+                </div>
+              </div>
+            </td>
+            <td class="align-middle text-center text-sm">
+              <div class="d-flex flex-column justify-content-center">
+                <span class="badge badge-sm bg-gradient-dark"><h6 class="mb-0 text-sm text-white">{{a.phone}}</h6></span>
+              </div>
+            </td>
+            <td class="align-middle text-center">
+              <span class="badge badge-sm bg-gradient-dark">{{a.createdAt|format_datetime('full', 'short', locale='fr')}}</span>
+            </td>
+            <td class="align-middle text-center">
+              <a href="{{path('admin.managers.edit',{uuid: a._id})}}" class="btn btn-primary bg-gradient-secondary btn-sm mb-0">Modifier</a>
+              <a href="{{path('admin.managers.edit.password', {uuid: a._id})}}" class="btn btn-warning bg-gradient-warning btn-sm mb-0">  Mot de passe (Modification)  <i class="fa fa-lock text-lg text-dark ml-3"></i></a>
+            </td>
+          </tr>
+        {% endfor %}
+        {% if admins | length == 0 %}
+          <tr>
+            <td colspan="3">
+              <p class="text-xs text-secondary mb-0 text-center">
+                <strong class="text-dark">Aucun admin disponible actuellement !</strong>
+              </p>
+            </td>
+          </tr>
+        {% endif %}
+  
+      </tbody>
+    </table>
+  </div>
+  

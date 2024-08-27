@@ -1,6 +1,5 @@
-{% set catNum = 0 %}
 {% for c in categories|reverse %}
-  <div class="col-xl-3 col-md-6 mb-xl-0 mb-4">
+  <div class="col-xl-3 col-md-6 mb-xl-0 mb-4 mt-4">
     <div class="card card-blog card-plain">
       <div class="position-relative">
         <a class="d-block shadow-xl border-radius-xl">
@@ -18,7 +17,7 @@
         </p>
         <p class="text-gradient text-dark mb-4 text-sm">{{c.createdAt|format_datetime('full', 'short', locale='fr')}}</p>
         <div class="d-flex align-items-center justify-content-between">
-          <a href="{{path('admin.categories-companies.edit', {uuid : c._id})}}" class="btn btn-warning bg-gradient-secondary btn-sm mb-0"><i class="fas fa-edit text-dark text-start"></i> Modifier</a>
+          <a href="{{path('admin.categories-companies.edit', {uuid : c._id})}}" class="btn btn-warning bg-gradient-secondary btn-sm mb-0"> Modifier</a>
           <div class="avatar-group">
             <a href="{{path('admin.categories-companies.delete', {uuid : c._id})}}" class="btn btn-danger bg-gradient-warning btn-sm mb-0" onClick="showMessage(event);">Supprimer</a>
           </div>

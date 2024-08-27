@@ -1,0 +1,70 @@
+{% if admin %}
+  <div class="modal-content">
+    <div class="modal-body p-0">
+      <div class="card card-plain">
+        <div class="card-header pb-0 text-left">
+          <h3 class="font-weight-bolder text-info text-gradient">Modification du Gestionnaire - {{admin.firstName}} {{admin.lastName}}</h3>
+        </div>
+        <div class="card-body">
+          {{form_start(form)}}
+          <label>Nouveau mot de passe</label>
+          <div class="input-group mb-3">
+            {{form_widget(form.password,{'attr':{'class':'form-control', 'placeholder':'Ex: 1234', 'autofocus': 'autofocus'}})}}
+          </div>
+          <label>Confirmer le mot de passe</label>
+          <div class="input-group mb-3">
+            {{form_widget(form.confirm_password,{'attr':{'class':'form-control', 'placeholder':'Ex: 1234'}})}}
+          </div>
+
+
+          <div class="text-center d-flex">
+            <a href="{{path('admin.managers')}}" class="btn btn-round bg-gradient-dark btn-lg w-30 mt-4 mb-0 m-2">RETOUR</a>
+            <button type="submit" id="submit_btn" class="btn btn-round bg-gradient-info btn-lg w-70 mt-4 mb-0 m-2">ENREGISTRER</button>
+          </div>
+          {{form_end(form)}}
+        </div>
+        <div class="card-footer text-center pt-0 px-lg-2 px-1">
+          <p class="mb-4 text-sm mx-auto">
+            Veuillez toujours enregister les modifications !
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+<script>
+    var new_password = document.getElementById('edit_admin_password_password');
+    var confirm_password = document.getElementById('edit_admin_password_confirm_password');
+    var submit_btn = document.getElementById('submit_btn');
+    
+    confirm_password.oninput = function() {
+      if(new_password.value == confirm_password.value)
+      {
+        new_password.style.borderColor = "green";
+        confirm_password.style.borderColer = "green"
+        submit_btn.disabled = false
+      }
+      else
+      {
+        new_password.style.borderColor = "red";
+        confirm_password.style.borderColer = "red"
+        submit_btn.disabled = true
+      }
+    }
+
+    new_password.oninput = function() {
+      if(new_password.value == confirm_password.value)
+      {
+        new_password.style.borderColor = "green";
+        confirm_password.style.borderColer = "green"
+        submit_btn.disabled = false
+      }
+      else
+      {
+        new_password.style.borderColor = "red";
+        confirm_password.style.borderColer = "red"
+        submit_btn.disabled = true
+      }
+    }
+</script>

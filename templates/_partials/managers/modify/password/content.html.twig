@@ -1,0 +1,45 @@
+<div class="container-fluid">
+    <div class="card card-body blur shadow-blur overflow-hidden">
+      <div class="row gx-4">
+        <div class="col-auto my-auto">
+          <div class="h-100">
+            <h5 class="mb-1 icon-move-right">
+              Gestionnaires <i class="fas fa-arrow-right text-sm ms-1" aria-hidden="true"></i> <b>Modification</b>
+              <i class="fas fa-arrow-right text-sm ms-1" aria-hidden="true"></i> <b class="text-primary">Mot de passe</b>
+            </h5>
+            <p class="mb-0 font-weight-bold text-sm">
+              Modification du mot de passe
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid py-4">
+    <div class="row">
+      <div class="col-12 mt-4">
+        <div class="card mb-4">
+          <div class="card-header pb-0 p-3">
+            {% for message in app.flashes('admin-error') %}
+              <div class="alert alert-sm alert-danger" role="alert">
+                <strong class="text-white">{{message}}</strong>
+              </div>
+            {% endfor %}
+  
+            {% for message in app.flashes('admin-success') %}
+            <div class="alert alert-sm alert-success" role="alert">
+              <strong class="text-dark">{{message}}</strong>
+            </div>
+          {% endfor %}
+  
+          </div>
+          <div class="card-body p-3">
+            <div class="row">
+              {% include './_partials/managers/modify/password/modal.html.twig' %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

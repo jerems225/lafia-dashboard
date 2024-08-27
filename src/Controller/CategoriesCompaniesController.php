@@ -162,7 +162,7 @@ class CategoriesCompaniesController extends AbstractController
     }
 
     #[Route('/categories-entreprises/suppression/{uuid}', name: 'admin.categories-companies.delete')]
-    public function deleteCategory($category_uuid): Response
+    public function deleteCategory($uuid): Response
     {
         $logger = $this->getUser();
         if (!$logger) {
@@ -177,7 +177,7 @@ class CategoriesCompaniesController extends AbstractController
             return $this->redirectToRoute('app_logout');
         }
 
-        $result = $this->categorieService->deleteCategory($user, $category_uuid);
+        $result = $this->categorieService->deleteCategory($user, $uuid);
 
         $result['status'] == false ?  $this->addFlash('categories-companies-error', $result['message']) : $this->addFlash('add-categorie', $result['message']);
 

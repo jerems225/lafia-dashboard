@@ -21,7 +21,7 @@ class CategoryType extends AbstractType
             ->add('description',TextareaType::class,[
                 'required' => true,
                 'attr' => [
-                    'rows' => 5,
+                    'rows' => 4,
                     'cols' => 50,
                 ],
             ])

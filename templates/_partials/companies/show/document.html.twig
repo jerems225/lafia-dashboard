@@ -13,17 +13,17 @@
             <li class="list-group-item border-0 ps-0 pt-0 text-primary text-sm">
               <strong class="text-dark">Nom Complet:</strong>
               &nbsp;
-              <b>{{user['firstName']}} {{user['lastName']}}</b>
+              <b>{{user.firstName}} {{user.lastName}}</b>
             </li>
             <li class="list-group-item border-0 ps-0 text-primary text-sm">
               <strong class="text-dark">Email:</strong>
               &nbsp;
-              <b>{{user['email']}}</b>
+              <b>{{user.email}}</b>
             </li>
             <li class="list-group-item border-0 ps-0 text-primary text-sm">
                 <strong class="text-dark">Telephone:</strong>
                 &nbsp;
-                <b>{{user['phone']}}</b>
+                <b>{{user.phone}}</b>
             </li>
 
         </ul>
@@ -39,7 +39,7 @@
               <span class="text-xs">Registre de commerce</span>
             </div>
             <div class="d-flex align-items-center text-sm">
-              <a href="{{company['registrationLicense']}}" class="btn btn-link text-dark text-sm mb-0 px-0 ms-4" target="_blank" download>
+              <a href="{{company.registrationLicense}}" class="btn btn-link text-dark text-sm mb-0 px-0 ms-4" target="_blank" download>
                 <i class="fas fa-file-pdf text-lg me-1"></i><i class="fas fa-file-word text-lg me-1"></i>
                 PDF/DOCX
               </a>
@@ -51,7 +51,7 @@
               <span class="text-xs">Carte Nationale du proprietaire</span>
             </div>
             <div class="d-flex align-items-center text-sm">
-              <a href="{{owner['idCardFront']}}" class="btn btn-link text-dark text-sm mb-0 px-0 ms-4" target="_blank" download>
+              <a href="{{owner.idCardFront}}" class="btn btn-link text-dark text-sm mb-0 px-0 ms-4" target="_blank" download>
                 <i class="fa fa-file-image text-lg me-1"></i>
                 JPG/PNG
               </a>
@@ -63,7 +63,7 @@
               <span class="text-xs">Carte Nationale du proprietaire</span>
             </div>
             <div class="d-flex align-items-center text-sm">
-              <a href="{{owner['idCardBack']}}" class="btn btn-link text-dark text-sm mb-0 px-0 ms-4" target="_blank" download>
+              <a href="{{owner.idCardBack}}" class="btn btn-link text-dark text-sm mb-0 px-0 ms-4" target="_blank" download>
                 <i class="fa fa-file-image text-lg me-1"></i>
                 JPG/PNG
               </a>

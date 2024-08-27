@@ -10,64 +10,64 @@
           </div>
           <div class="col-md-4 text-end">
             <a href="javascript:;">
-              <img src="{{company['image']}}" class="avatar avatar-sm me-3 rounded" alt="company_image">
+              <img src="{{company.image}}" class="avatar avatar-sm me-3 rounded" alt="company_image">
             </a>
           </div>
         </div>
       </div>
       <div class="card-body p-3">
         <p class="text-sm">
-          {{company['description']}}
+          {{company.description}}
         </p>
         <hr class="horizontal gray-light my-4">
         <ul class="list-group">
           <li class="list-group-item border-0 ps-0 pt-0 text-primary text-sm">
             <strong class="text-dark">Nom:</strong>
             &nbsp;
-            <b>{{company['name']}}</b>
+            <b>{{company.name}}</b>
           </li>
           <li class="list-group-item border-0 ps-0 text-primary text-sm">
             <strong class="text-dark">Email:</strong>
             &nbsp;
-            <b>{{company['email']}}</b>
+            <b>{{company.email}}</b>
           </li>
           <li class="list-group-item border-0 ps-0 text-primary text-sm">
             <strong class="text-dark">Telephone:</strong>
             &nbsp;
-            <b>{{company['phone']}}</b>
+            <b>{{company.phone}}</b>
           </li>
           <li class="list-group-item border-0 ps-0 text-primary text-sm">
             <strong class="text-dark">Localisation:</strong>
             &nbsp;
-            <b>{{company['location']}}</b>
+            <b>{{company.location}}</b>
           </li>
           <li class="list-group-item border-0 ps-0 text-primary text-sm">
             <strong class="text-dark">Pays & Ville:</strong>
             &nbsp;
-            <b>{{company['city']}},
-              {{company['country']}}</b>
+            <b>{{company.city}},
+              {{company.country}}</b>
           </li>
           <li class="list-group-item border-0 ps-0 text-primary text-sm">
             <strong class="text-dark">
               Site Internet:</strong>
             &nbsp;
-            <a href="{{company['website']}}" target="_blank" class="text-primary">
-              <b>{{company['website']}}</b>
+            <a href="{{company.website}}" target="_blank" class="text-primary">
+              <b>{{company.website}}</b>
             </a>
           </li>
           <li class="list-group-item border-0 ps-0 pb-0">
             <strong class="text-dark text-sm">Social Media:</strong>
             &nbsp;
-            <a class="btn btn-facebook btn-simple mb-0 ps-1 pe-2 py-0" href="{{company['facebook']}}" target="_blank">
+            <a class="btn btn-facebook btn-simple mb-0 ps-1 pe-2 py-0" href="{{company.facebook}}" target="_blank">
               <i class="fab fa-facebook fa-lg"></i>
             </a>
-            <a class="btn btn-twitter btn-simple mb-0 ps-1 pe-2 py-0" href="{{company['instagram']}}" target="_blank">
+            <a class="btn btn-twitter btn-simple mb-0 ps-1 pe-2 py-0" href="{{company.instagram}}" target="_blank">
               <i class="fab fa-instagram fa-lg"></i>
             </a>
-            <a class="btn btn-instagram btn-simple mb-0 ps-1 pe-2 py-0" href="{{company['twitter']}}" target="_blank">
+            <a class="btn btn-instagram btn-simple mb-0 ps-1 pe-2 py-0" href="{{company.twitter}}" target="_blank">
               <i class="fab fa-twitter fa-lg"></i>
             </a>
-            <a class="btn btn-instagram btn-simple mb-0 ps-1 pe-2 py-0" href="{{company['linkedin']}}" target="_blank">
+            <a class="btn btn-instagram btn-simple mb-0 ps-1 pe-2 py-0" href="{{company.linkedin}}" target="_blank">
               <i class="fab fa-linkedin fa-lg"></i>
             </a>
           </li>

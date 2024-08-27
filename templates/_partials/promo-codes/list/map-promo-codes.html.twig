@@ -1,0 +1,46 @@
+<div class="table-responsive p-0">
+  <table class="table align-items-center mb-0">
+    <thead>
+      <tr class="bg-white text-white text-center">
+        <th class="text-uppercase text-white font-weight-bolder opacity-10 text-start" colspan="3">
+          <a href="#" class="btn btn-info bg-gradient-info btn-sm mb-0" data-bs-toggle="modal" data-bs-target="#modal-form">Ajouter un nouveu code
+            <i class="fa fa-plus-circle" style="font-size: 12px"></i>
+          </a>
+        </th>
+      </tr>
+      <tr class="bg-gradient-dark text-white text-center">
+        <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">CODE PROMO</th>
+        <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7 ps-2">POURCENTAGE</th>
+        <th class="text-white opacity-7">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for p in promocodes|reverse %}
+        <tr>
+          <td class="align-middle text-center text-sm">
+            <div class="d-flex flex-column justify-content-center">
+              <h6 class="mb-0 text-sm">{{p.code|upper}}</h6>
+            </div>
+          </td>
+          <td class="align-middle text-center text-sm">
+            <span class="badge badge-sm bg-gradient-dark">{{p.promoPercent}}%</span>
+          </td>
+          <td class="align-middle text-center">
+            <a href="{{path('admin.promo-codes.update', {uuid: p._id})}}" class="btn btn-primary bg-gradient-secondary btn-sm mb-0">Modifier</a>
+            <a href="{{path('admin.promo-codes.delete', {uuid: p._id})}}" class="btn btn-danger bg-gradient-danger btn-sm mb-0">Supprimer</a>
+          </td>
+        </tr>
+      {% endfor %}
+      {% if promocodes | length == 0 %}
+        <tr>
+          <td colspan="3">
+            <p class="text-xs text-secondary mb-0 text-center">
+              <strong class="text-dark">Aucun code promo disponible actuellement !</strong>
+            </p>
+          </td>
+        </tr>
+      {% endif %}
+
+    </tbody>
+  </table>
+</div>

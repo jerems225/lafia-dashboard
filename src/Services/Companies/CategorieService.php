@@ -61,7 +61,7 @@ class CategorieService extends AbstractController
      */
     public function getCategory(User $user, $category_uuid): array
     {
-        $url = $_ENV['BASE_URL'] . '/category-company/' .$category_uuid;
+        $url = $_ENV['BASE_URL'] . '/category-company-status/' .$category_uuid;
         $response = $this->client->request(
             'GET',
             $url,

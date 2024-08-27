@@ -1,0 +1,45 @@
+{% if order %}
+  <div class="col-12 col-xl-4">
+    <div class="card h-100">
+      <div class="card-header pb-0 p-3">
+        <div class="row">
+          <div class="col-8 d-flex align-items-center">
+            <h6 class="mb-0">
+              Informations sur la commande
+            </h6>
+          </div>
+          <div class="col-md-4 text-end">
+            <a href="javascript:;">
+              <img src="{{}}" class="avatar avatar-sm me-3 rounded" alt="rider_image">
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="card-body p-3">
+        <hr class="horizontal gray-light my-4">
+        <ul class="list-group">
+          <li class="list-group-item border-0 ps-0 pt-0 text-primary text-sm">
+            <strong class="text-dark">Nom:</strong>
+            &nbsp;
+            <b>{{rider.user.firstName}} {{rider.user.lastName}}</b>
+          </li>
+          <li class="list-group-item border-0 ps-0 text-primary text-sm">
+            <strong class="text-dark">Email:</strong>
+            &nbsp;
+            <b>{{rider.user.email}}</b>
+          </li>
+          <li class="list-group-item border-0 ps-0 text-primary text-sm">
+            <strong class="text-dark">Telephone:</strong>
+            &nbsp;
+            <b>{{rider.user.phone}}</b>
+          </li>
+          <li class="list-group-item border-0 ps-0 text-primary text-sm">
+            <strong class="text-dark">Localisation:</strong>
+            &nbsp;
+            <b>{{rider.user.address}}</b>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+{% endif %}

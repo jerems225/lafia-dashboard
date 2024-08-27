@@ -1,0 +1,7 @@
+{% extends 'base.html.twig' %}
+{% block title %}Liste des Gestionnaires {% endblock title %}
+{% block body %}
+<div class="main-content position-relative bg-gray-100 max-height-vh-100 h-100">
+    {% include './_partials/managers/list/content.html.twig' %}
+</div>
+{% endblock body %}

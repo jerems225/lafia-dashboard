@@ -1,0 +1,48 @@
+{% if admin %}
+  <div class="modal-content">
+    <div class="modal-body p-0">
+      <div class="card card-plain">
+        <div class="card-header pb-0 text-left">
+          <h3 class="font-weight-bolder text-info text-gradient">Modification du Gestionnaire - {{admin.firstName}} {{admin.lastName}}</h3>
+        </div>
+        <div class="card-body">
+          {{form_start(form)}}
+          <label>Prenom(s)</label>
+          <div class="input-group mb-3">
+            {{form_widget(form.firstName,{'attr':{'class':'form-control', 'placeholder':'Ex: John', 'value': admin.firstName, 'autofocus': 'autofocus'}})}}
+          </div>
+          <label>Nom</label>
+          <div class="input-group mb-3">
+            {{form_widget(form.lastName,{'attr':{'class':'form-control', 'placeholder':'Ex: Doe', 'value': admin.lastName}})}}
+          </div>
+
+          <label>Email</label>
+          <div class="input-group mb-3">
+            {{form_widget(form.email,{'attr':{'class':'form-control', 'placeholder':'Ex: doe@example.com', 'value': admin.email}})}}
+          </div>
+
+          <label>Telephone</label>
+          <div class="input-group mb-3">
+            {{form_widget(form.phone,{'attr':{'class':'form-control', 'placeholder':'Ex: +00 000 000 ', 'value': admin.phone}})}}
+          </div>
+
+          <label>Changer le role</label>
+          <div class="input-group mb-3">
+            {{form_widget(form.role,{'attr':{'class':'form-control form-select', 'value': admin.role }})}}
+          </div>
+
+          <div class="text-center d-flex">
+            <a href="{{path('admin.managers')}}" class="btn btn-round bg-gradient-dark btn-lg w-30 mt-4 mb-0 m-2">RETOUR</a>
+            <button type="submit" class="btn btn-round bg-gradient-info btn-lg w-70 mt-4 mb-0 m-2">ENREGISTRER</button>
+          </div>
+          {{form_end(form)}}
+        </div>
+        <div class="card-footer text-center pt-0 px-lg-2 px-1">
+          <p class="mb-4 text-sm mx-auto">
+            Veuillez toujours enregister les modifications !
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}

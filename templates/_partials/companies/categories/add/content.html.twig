@@ -3,8 +3,8 @@
     <div class="row gx-4">
       <div class="col-auto my-auto">
         <div class="h-100">
-          <h5 class="mb-1 text-primary">
-            <b>Categories d'entreprises</b>
+          <h5 class="mb-1 icon-move-right">
+            Categories <i class="fas fa-arrow-right text-sm ms-1" aria-hidden="true"></i> <b class="text-primary"> Entreprises</b>
           </h5>
           <p class="mb-0 font-weight-bold text-sm">
             Consultation, Ajout, Modification et Suppression
@@ -36,9 +36,11 @@
         <div class="card-body p-3">
           <div class="row">
 
+            {% include './_partials/companies/categories/add/modal-add.html.twig' %}
+            
             {% include './_partials/companies/categories/add/map-categories.html.twig' %}
 
-            {% include './_partials/companies/categories/add/modal-add.html.twig' %}
+
 
           </div>
         </div>

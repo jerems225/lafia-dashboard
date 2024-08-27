@@ -3,8 +3,8 @@
     <div class="row gx-4">
       <div class="col-6 my-auto text-start">
         <div class="h-100">
-          <h5 class="mb-1">
-            Entreprises - Demandes d'adhesion
+          <h5 class="mb-1 ">
+            Entreprises <i class="fas fa-arrow-right text-sm ms-1" aria-hidden="true"></i> {% if company %} <b class="text-primary">{{company.name}}</b> {% endif %}
           </h5>
           <p class="mb-0 font-weight-bold text-sm">
             Consultation de la demande d'adhesion de l'Entreprise
@@ -14,13 +14,13 @@
       <div class="col-6 my-auto text-end">
         {% if company %}
           <div class="h-100">
-            {% if company['status'] == "pending" %}
+            {% if company.status == "pending" %}
               <span class="badge badge-sm bg-gradient-warning text-end">En attente de traitement</span>
-            {% elseif company['status'] == "accepted" %}
+            {% elseif company.status == "accepted" %}
               <span class="badge badge-sm bg-gradient-success text-end text-dark">Entreprise acceptee et visible</span>
-            {% elseif company['status'] == "rejected" %}
+            {% elseif company.status == "rejected" %}
               <span class="badge badge-sm bg-gradient-danger text-end">Entreprise REJETEE et indisponible</span>
-            {% elseif company['status'] == "desactivated" %}
+            {% elseif company.status == "desactivated" %}
               <span class="badge badge-sm bg-gradient-danger text-end">Entreprise desactivee et indisponible</span>
             {% endif %}
           </div>
@@ -65,16 +65,16 @@
         <div class="col-6 my-auto">
           <div class="h-100">
             <div class="text-center d-flex">
-              {% if company['status'] == "pending" %}
+              {% if company.status == "pending" %}
                 <a href="{{path('admin.companies.status', {uuid: company['_id'], status: "accepted"})}}" class="btn btn-round bg-gradient-success text-dark btn-lg w-50 mt-2 m-1">VALIDER LA DEMANDE</a>
                 <a href="{{path('admin.companies.status', {uuid: company['_id'], status: "rejected"})}}" class="btn btn-round bg-gradient-warning btn-lg w-50 mt-2 m-1">REJETER LA DEMANDE</a>
-              {% elseif company['status'] == "accepted" %}
+              {% elseif company.status == "accepted" %}
                 <a href="{{path('admin.companies.status', {uuid: company['_id'], status: "desactivated"})}}" class="btn btn-round bg-gradient-danger btn-lg w-50 mt-2 m-1">DESACTIVER L'ENTREPRISE</a>
                 <a href="{{path('admin.companies.status', {uuid: company['_id'], status: "pending"})}}" class="btn btn-round bg-gradient-dark btn-lg w-50 mt-2 m-1">REMETTRE EN ATTENTE</a>
-              {% elseif company['status'] == "rejected" %}
+              {% elseif company.status == "rejected" %}
                 <a href="{{path('admin.companies.status', {uuid: company['_id'], status: "accepted"})}}" class="btn btn-round bg-gradient-success text-dark btn-lg w-50 mt-2 m-1">VALIDER LA DEMANDE</a>
                 <a href="{{path('admin.companies.status', {uuid: company['_id'], status: "pending"})}}" class="btn btn-round bg-gradient-dark btn-lg w-50 mt-2 m-1">REMETTRE EN ATTENTE</a>
-              {% elseif company['status'] == "desactivated" %}
+              {% elseif company.status == "desactivated" %}
                 <a href="{{path('admin.companies.status', {uuid: company['_id'], status: "accepted"})}}" class="btn btn-round bg-gradient-success text-dark btn-lg w-50 mt-2 m-1">ACTIVER L'ENTREPRISE</a>
                 <a href="{{path('admin.companies.status', {uuid: company['_id'], status: "pending"})}}" class="btn btn-round bg-gradient-dark btn-lg w-50 mt-2 m-1">REMETTRE EN ATTENTE</a>
               {% endif %}

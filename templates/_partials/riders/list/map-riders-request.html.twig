@@ -1,0 +1,316 @@
+{% if riders %}
+
+<div class="nav-align-top mb-4">
+  <ul class="nav nav-pills mb-3 nav-fill" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link mb-0 px-0 py-1 active" role="tab" data-bs-toggle="tab" data-bs-target="#request-pending" aria-controls="request-pending" aria-selected="true">
+        <i class="tf-icons fa fa-question text-danger"></i>
+        Demandes d'adhésion
+        <span class="badge rounded-pill badge-center bg-gradient-warning">{{riders.pendingRiders|length}}</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link mb-0 px-0 py-1" role="tab" data-bs-toggle="tab" data-bs-target="#request-rejected" aria-controls="request-rejected" aria-selected="false">
+        <i class="tf-icons fa fa-question text-danger"></i>
+        Demandes d'adhésion annulée
+        <span class="badge rounded-pill badge-center bg-gradient-danger">{{riders.rejectedRiders|length}}</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link mb-0 px-0 py-1" role="tab" data-bs-toggle="tab" data-bs-target="#activated" aria-controls="activated" aria-selected="false">
+        <i class="tf-icons bx bx-home"></i>
+        Livreurs actifs
+        <span class="badge rounded-pill badge-center bg-gradient-success">{{riders.activatedRiders|length}}</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link mb-0 px-0 py-1" role="tab" data-bs-toggle="tab" data-bs-target="#desactivated" aria-controls="desactivated" aria-selected="false">
+        <i class="tf-icons bx bx-message-square"></i>
+        Livreurs inactifs
+        <span class="badge rounded-pill badge-center  bg-gradient-danger">{{riders.desactivatedRiders|length}}</span>
+      </a>
+    </li>
+
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane fade show active" id="request-pending" role="tabpanel">
+      <div class="table-responsive p-0">
+        <table class="table align-items-center mb-0">
+          <thead>
+            <tr class="bg-gradient-dark text-white text-center">
+              <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">NOM COMPLET</th>
+              <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7 ps-2">Telephone</th>
+              <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7 ps-2">Localisation</th>
+              <th class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7">Date de demande</th>
+              <th class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7">Statut</th>
+              <th class="text-white opacity-7">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for r in riders['pendingRiders'] %}
+            <tr>
+              <td>
+                <div class="d-flex px-2 py-1">
+                  <div>
+                    <img src="{{r.rider.profileImage}}" class="avatar avatar-sm me-3" alt="rider_image">
+                  </div>
+                  <div class="d-flex flex-column justify-content-center">
+                    <h6 class="mb-0 text-sm">{{r.user.firstName}}
+                      {{r.user.lastName}}</h6>
+                    <p class="text-xs text-secondary mb-0">{{r.user.email}}</p>
+                  </div>
+                </div>
+              </td>
+              <td class="align-middle text-center text-sm">
+                <div class="d-flex flex-column justify-content-center">
+                  <h6 class="mb-0 text-sm">{{r.user.phone}}</h6>
+                </div>
+              </td>
+              <td class="align-middle text-center text-sm">
+                <span class="badge badge-sm bg-gradient-dark">{{r.user.address}}</span>
+              </td>
+              <td class="align-middle text-center">
+                <span class="badge badge-sm bg-gradient-dark">{{r.rider.createdAt|format_datetime('full', 'short', locale='fr')}}</span>
+              </td>
+              <td class="align-middle text-center">
+                {% if r.rider.status == "pending" %}
+                  <span class="badge badge-sm bg-gradient-warning">En attente de traitement</span>
+                {% endif %}
+              </td>
+              <td class="align-middle text-center">
+                <a href="{{path('admin.livreurs.show', {uuid: r.user._id})}}" class="btn btn-primary bg-gradient-secondary btn-sm mb-0">Consulter</a>
+              </td>
+            </tr>
+          {% endfor %}
+          {% if riders['pendingRiders'] | length == 0 %}
+            <tr>
+              <td colspan="5">
+                <p class="text-xs text-secondary mb-0 text-center">
+                  <strong class="text-dark">Aucune demande d'adhésion en attente de traitement !</strong>
+                </p>
+              </td>
+            </tr>
+          {% endif %}
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="tab-pane fade" id="request-rejected" role="tabpanel">
+      <div class="table-responsive p-0">
+        <table class="table align-items-center mb-0">
+          <thead>
+            <tr class="bg-gradient-dark text-white text-center">
+              <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">NOM COMPLET</th>
+              <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7 ps-2">Telephone</th>
+              <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7 ps-2">Localisation</th>
+              <th class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7">Date de demande</th>
+              <th class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7">Statut</th>
+              <th class="text-white opacity-7">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for r in riders['rejectedRiders'] %}
+              <tr>
+                <td>
+                  <div class="d-flex px-2 py-1">
+                    <div>
+                      <img src="{{r.rider.profileImage}}" class="avatar avatar-sm me-3" alt="rider_image">
+                    </div>
+                    <div class="d-flex flex-column justify-content-center">
+                      <h6 class="mb-0 text-sm">{{r.user.firstName}}
+                        {{r.user.lastName}}</h6>
+                      <p class="text-xs text-secondary mb-0">{{r.user.email}}</p>
+                    </div>
+                  </div>
+                </td>
+                <td class="align-middle text-center text-sm">
+                  <div class="d-flex flex-column justify-content-center">
+                    <h6 class="mb-0 text-sm">{{r.user.phone}}</h6>
+                  </div>
+                </td>
+                <td class="align-middle text-center text-sm">
+                  <span class="badge badge-sm bg-gradient-dark">{{r.user.address}}</span>
+                </td>
+                <td class="align-middle text-center">
+                  <span class="badge badge-sm bg-gradient-dark">{{r.rider.createdAt|format_datetime('full', 'short', locale='fr')}}</span>
+                </td>
+                <td class="align-middle text-center">
+                  {% if r.rider.status == "rejected" %}
+                    <span class="badge badge-sm bg-gradient-danger">demande rejetée</span>
+                  {% endif %}
+                </td>
+                <td class="align-middle text-center">
+                  <a href="{{path('admin.livreurs.show', {uuid: r.user._id})}}" class="btn btn-primary bg-gradient-secondary btn-sm mb-0">Consulter</a>
+                </td>
+              </tr>
+            {% endfor %}
+            {% if riders['rejectedRiders'] | length == 0 %}
+              <tr>
+                <td colspan="5">
+                  <p class="text-xs text-secondary mb-0 text-center">
+                    <strong class="text-dark">Aucune demande d'adhesion annulee !</strong>
+                  </p>
+                </td>
+              </tr>
+            {% endif %}
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="tab-pane fade" id="activated" role="tabpanel">
+      <div class="table-responsive p-0">
+        <table class="table align-items-center mb-0">
+          <thead>
+            <tr class="bg-gradient-dark text-white text-center">
+              <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">NOM COMPLET</th>
+              <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7 ps-2">Telephone</th>
+              <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7 ps-2">Localisation</th>
+              <th class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7">Date de demande</th>
+              <th class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7">Statut</th>
+              <th class="text-white opacity-7">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for r in riders['activatedRiders'] %}
+              <tr>
+                <td>
+                  <div class="d-flex px-2 py-1">
+                    <div>
+                      <img src="{{r.rider.profileImage}}" class="avatar avatar-sm me-3" alt="rider_image">
+                    </div>
+                    <div class="d-flex flex-column justify-content-center">
+                      <h6 class="mb-0 text-sm">{{r.user.firstName}}
+                        {{r.user.lastName}}</h6>
+                      <p class="text-xs text-secondary mb-0">{{r.user.email}}</p>
+                    </div>
+                  </div>
+                </td>
+                <td class="align-middle text-center text-sm">
+                  <div class="d-flex flex-column justify-content-center">
+                    <h6 class="mb-0 text-sm">{{r.user.phone}}</h6>
+                  </div>
+                </td>
+                <td class="align-middle text-center text-sm">
+                  <span class="badge badge-sm bg-gradient-dark">{{r.user.address}}</span>
+                </td>
+                <td class="align-middle text-center">
+                  <span class="badge badge-sm bg-gradient-dark">{{r.rider.createdAt|format_datetime('full', 'short', locale='fr')}}</span>
+                </td>
+                <td class="align-middle text-center">
+                  {% if r.rider.status == "accepted" %}
+                    <span class="badge badge-sm bg-gradient-success text-dark">Livreur actif</span>
+                  {% endif %}
+                </td>
+                <td class="align-middle text-center">
+                  <a href="{{path('admin.livreurs.show', {uuid: r.user._id})}}" class="btn btn-primary bg-gradient-secondary btn-sm mb-0">Consulter</a>
+                </td>
+              </tr>
+            {% endfor %}
+            {% if riders['activatedRiders'] | length == 0 %}
+              <tr>
+                <td colspan="5">
+                  <p class="text-xs text-secondary mb-0 text-center">
+                    <strong class="text-dark">Aucun Livreur actif actuellement !</strong>
+                  </p>
+                </td>
+              </tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="tab-pane fade" id="desactivated" role="tabpanel">
+      <div class="table-responsive p-0">
+        <table class="table align-items-center mb-0">
+          <thead>
+            <tr class="bg-gradient-dark text-white text-center">
+              <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">NOM COMPLET</th>
+              <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7 ps-2">Telephone</th>
+              <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7 ps-2">Localisation</th>
+              <th class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7">Date de demande</th>
+              <th class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7">Statut</th>
+              <th class="text-white opacity-7">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for r in riders['desactivatedRiders'] %}
+              <tr>
+                <td>
+                  <div class="d-flex px-2 py-1">
+                    <div>
+                      <img src="{{r.rider.profileImage}}" class="avatar avatar-sm me-3" alt="rider_image">
+                    </div>
+                    <div class="d-flex flex-column justify-content-center">
+                      <h6 class="mb-0 text-sm">{{r.user.firstName}}
+                        {{r.user.lastName}}</h6>
+                      <p class="text-xs text-secondary mb-0">{{r.user.email}}</p>
+                    </div>
+                  </div>
+                </td>
+                <td class="align-middle text-center text-sm">
+                  <div class="d-flex flex-column justify-content-center">
+                    <h6 class="mb-0 text-sm">{{r.user.phone}}</h6>
+                  </div>
+                </td>
+                <td class="align-middle text-center text-sm">
+                  <span class="badge badge-sm bg-gradient-dark">{{r.user.address}}</span>
+                </td>
+                <td class="align-middle text-center">
+                  <span class="badge badge-sm bg-gradient-dark">{{r.rider.createdAt|format_datetime('full', 'short', locale='fr')}}</span>
+                </td>
+                <td class="align-middle text-center">
+                  {% if r.rider.status == "desactivated" %}
+                    <span class="badge badge-sm bg-gradient-danger">Livreur inactif</span>
+                  {% endif %}
+                </td>
+                <td class="align-middle text-center">
+                  <a href="{{path('admin.livreurs.show', {uuid: r.user._id})}}" class="btn btn-primary bg-gradient-secondary btn-sm mb-0">Consulter</a>
+                </td>
+              </tr>
+            {% endfor %}
+            {% if riders['desactivatedRiders'] | length == 0 %}
+              <tr>
+                <td colspan="5">
+                  <p class="text-xs text-secondary mb-0 text-center">
+                    <strong class="text-dark">Aucun livreur n'a été retiré !</strong>
+                  </p>
+                </td>
+              </tr>
+            {% endif %}
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% else %}
+<div class="table-responsive p-0">
+  <table class="table align-items-center mb-0">
+    <thead>
+      <tr class="bg-gradient-dark text-white text-center">
+        <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">NOM COMPLET</th>
+        <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7 ps-2">Telephone</th>
+        <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7 ps-2">Localisation</th>
+        <th class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7">Date de demande</th>
+        <th class="text-center text-uppercase text-white text-xxs font-weight-bolder opacity-7">Statut</th>
+        <th class="text-white opacity-7">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td colspan="5">
+            <p class="text-xs text-secondary mb-0 text-center">
+              <strong class="text-dark">Aucun livreur enregistré actuellement !</strong>
+            </p>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+</div>
+{% endif %}
